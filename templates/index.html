@@ -1,0 +1,45 @@
+
+{% with messages = get_flashed_messages() %}
+{%if messages%}
+{%for message in messages%}
+<h4 style="color: red;">{{message}}</h4>
+{%endfor%}
+{%endif%}
+{%endwith%}
+
+
+<header> <a href="/">Clientes</a> | <a href="/sales">Ventas</a></header>
+<h3>Crear nuevo cliente.</h3>
+
+
+
+<form action="/add" method="POST">
+    <input type="text" name="customer_id" placeholder="ID del cliente">
+    <input type="text" name="customer_name" placeholder="Nombre Completo">
+    <input type="text" name="level" placeholder="Tipo de Cliente">
+    <button type="submit">Guardar</button>
+</form>
+
+<h3>Lista de clientes</h3>
+<table border="2px">
+    <thead>
+        <tr>
+            <td>ID del Cliente</td>
+            <td>Nombre Completo</td>
+            <td>Tipo de Cliente</td>
+            <td>Operaciones</td>
+        </tr>
+    </thead>
+    <tbody>
+        {%for client in clients%}
+            <tr>
+                <td>{{client.0}}</td>
+                <td>{{client.1}}</td>
+                <td>{{client.2}}</td>
+                <td>
+                    <a href="/delete_customer/{{client.0}}">Borar</a>
+                </td>
+            </tr>
+        {%endfor%}
+    </tbody>
+</table>

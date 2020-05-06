@@ -1,0 +1,45 @@
+
+{% with messages = get_flashed_messages() %}
+{%if messages%}
+{%for message in messages%}
+    <h4 style="color: red;">{{message}}</h4>
+{%endfor%}
+{%endif%}
+{%endwith%}
+<nav> <a href="/">Clientes</a> | <a href="/sales">Ventas</a></nav>
+<h3>Crear nueva venta.</h3>
+
+
+
+<form action="/add_sale" method="POST">
+    <input type="text" name="sales_id" placeholder="ID de la venta">
+    <input type="text" name="customer_id" placeholder="ID del cliente">
+    <input type="text" name="sales_amount" placeholder="Cantidad de la venta">
+    <button type="submit">Guardar</button>
+</form>
+
+
+<h3>Ventas realizadas (deben se menores a 10,000Bs.)</h3>
+<table border="2px">
+    <thead>
+        <tr>
+            <td>ID del la venta</td>
+            <td>Nombre del vendedor</td>
+            <td>Cantidad de la venta en Bs.</td>
+            <td>Operaciones</td>
+        </tr>
+    </thead>
+    <tbody>
+        {%for sale in sales%}
+            <tr>
+                <td>{{sale.0}}</td>
+                <td>{{sale.1}}</td>
+                <td>{{sale.2}}</td>
+                <td>
+                    <a href="/edit_sale/{{sale.0}}">Editar</a>
+                    <a href="/delete_sale/{{sale.0}}">Borar</a>
+                </td>
+            </tr>
+        {%endfor%}
+    </tbody>
+</table>
